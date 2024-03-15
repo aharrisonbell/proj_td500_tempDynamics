@@ -2,14 +2,16 @@ function lsnconfig = generate_td500_config
 % generate_td500_config.m
 % Generates Config file for TEMPORAL AND POPULATION DYNAMICS analysis of rsvp500 data
 % written by AHB, May 2014
+% updated Feb 16, 2024
 
-% ROOT DIRECTORY
-in_rootdir = '/Volumes/Drobo/PlexonData/';
-out_rootdir = '~/Documents/_Current_Projects/TemporalDynamics500/';
-lsnconfig.in_rootdir=in_rootdir;
-lsnconfig.out_rootdir=out_rootdir;
+global lsnconfig %#ok<*REDEFGI>
 
-% INPUT/OUTPUT DIRECTORIES
+% ROOT DIRECTORIES
+lsnconfig.ephysdata_rootdir = '/Volumes/WD_BLACK8TB mac/_CompleteArchive_June2023_ORIGof3/__Current_Projects/ephysData';
+lsnconfig.in_rootdir = '/Volumes/WD_BLACK8TB mac/_CompleteArchive_June2023_ORIGof3/_LONG_TERM_STORAGE/_@_PLEXONDATA_NIH';
+lsnconfig.out_rootdir = '~/OneDrive-King''sCollegeLondon/ephysProjects/T500_TemporalDynamics_Study';
+
+% RAW DATA DIRECTORIES
 lsnconfig.spikedir  = [in_rootdir,'COMPILED_output',filesep]; % output dir for spike matrices
 lsnconfig.neurondir = [in_rootdir,'UNIT_output',filesep]; % output dir for MUA
 lsnconfig.LFPdir    = [in_rootdir,'LFPS',filesep]; % output dir for uncorrected LFP channels
@@ -19,12 +21,14 @@ lsnconfig.locationdir=[in_rootdir,'LocationFiles',filesep]; % output dir for loc
 lsnconfig.wavetemp   =[in_rootdir,'WAVEFORM_templates',filesep]; % output dir for waveform templates
 lsnconfig.wave_raw   =[in_rootdir,'WAVEFORM_raw',filesep]; % output dir for raw waveforms
 lsnconfig.unitdir   = [in_rootdir,'UnitFiles',filesep]; % output dir for spiketrains/trial files
-
 lsnconfig.rsvp500spks=[in_rootdir,'rsvp500spks',filesep]; % output for spiketrains for dms400 neurons
 lsnconfig.rsvp500lfps=[in_rootdir,'rsvp500lfps',filesep]; % output for lfps for rsvp500 files
 
+% ANALYSIS/OUTPUT DIRECTORIES
 lsnconfig.figurepath    = [out_rootdir,'figure_source_images',filesep]; % output dir for all data structures
 lsnconfig.datadir = [out_rootdir,'matlab_data',filesep]; % output dir for all figures
+
+
 
 % DEFAULT FILE LISTS
 lsnconfig.excelfile = [out_rootdir,'td500_Neurons.xlsx']; % excel spreadsheet

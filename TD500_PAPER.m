@@ -11,10 +11,15 @@ function TD500_PAPER(analyses)
 %   all *.m files with UPPERCASE LETTERS are main programs
 
 % ADD PATHS
-addpath(userpath)
-addpath(genpath('~/Documents/MATLAB/Common_Functions'))
-addpath(genpath('~/Documents/MATLAB/chronux'));
-addpath(genpath('~/Documents/MATLAB/td500_code'),'-BEGIN');
+if ispc
+    rootdir='C:\Users\ahbel\OneDrive - King''s College London\MATLAB';
+else % MAC
+    rootdir='~/OneDrive - King''s College London/MATLAB';
+end
+addpath(userpath);
+addpath(genpath([rootdir,filesep,'currentProjects']));
+addpath(genpath([rootdir,filesep,'currentProjects',filesep,'proj_d500_es_rs']));
+addpath(genpath([rootdir,filesep,'Common_Functions']));
 
 % SETUP DEFAULTS
 close all; dbstop if error
