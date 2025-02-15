@@ -9,36 +9,37 @@ global lsnconfig %#ok<*REDEFGI>
 % ROOT DIRECTORIES
 lsnconfig.ephysdata_rootdir = '/Volumes/WD_BLACK8TB mac/_CompleteArchive_June2023_ORIGof3/__Current_Projects/ephysData';
 lsnconfig.in_rootdir = '/Volumes/WD_BLACK8TB mac/_CompleteArchive_June2023_ORIGof3/_LONG_TERM_STORAGE/_@_PLEXONDATA_NIH';
-lsnconfig.out_rootdir = '~/OneDrive-King''sCollegeLondon/ephysProjects/T500_TemporalDynamics_Study';
+lsnconfig.out_rootdir =  '/Users/andrewhbell/Library/CloudStorage/OneDrive-King''sCollegeLondon/ephysProjects/T500_TemporalDynamics_Study';
 
 % RAW DATA DIRECTORIES
-lsnconfig.spikedir  = [in_rootdir,'COMPILED_output',filesep]; % output dir for spike matrices
-lsnconfig.neurondir = [in_rootdir,'UNIT_output',filesep]; % output dir for MUA
-lsnconfig.LFPdir    = [in_rootdir,'LFPS',filesep]; % output dir for uncorrected LFP channels
-lsnconfig.LFPdir_corr=[in_rootdir,'LFPscorr',filesep]; % output dir for LFP channels (after reverse filtering)
-lsnconfig.startend  = [in_rootdir,'StartEnd',filesep]; % output dir for start & end text files
-lsnconfig.locationdir=[in_rootdir,'LocationFiles',filesep]; % output dir for location text files
-lsnconfig.wavetemp   =[in_rootdir,'WAVEFORM_templates',filesep]; % output dir for waveform templates
-lsnconfig.wave_raw   =[in_rootdir,'WAVEFORM_raw',filesep]; % output dir for raw waveforms
-lsnconfig.unitdir   = [in_rootdir,'UnitFiles',filesep]; % output dir for spiketrains/trial files
-lsnconfig.rsvp500spks=[in_rootdir,'rsvp500spks',filesep]; % output for spiketrains for dms400 neurons
-lsnconfig.rsvp500lfps=[in_rootdir,'rsvp500lfps',filesep]; % output for lfps for rsvp500 files
+lsnconfig.spikedir  = [lsnconfig.in_rootdir,'COMPILED_output',filesep]; % output dir for spike matrices
+lsnconfig.neurondir = [lsnconfig.in_rootdir,'UNIT_output',filesep]; % output dir for MUA
+lsnconfig.LFPdir    = [lsnconfig.in_rootdir,'LFPS',filesep]; % output dir for uncorrected LFP channels
+lsnconfig.LFPdir_corr=[lsnconfig.in_rootdir,'LFPscorr',filesep]; % output dir for LFP channels (after reverse filtering)
+lsnconfig.startend  = [lsnconfig.in_rootdir,'StartEnd',filesep]; % output dir for start & end text files
+lsnconfig.locationdir=[lsnconfig.in_rootdir,'LocationFiles',filesep]; % output dir for location text files
+lsnconfig.wavetemp   =[lsnconfig.in_rootdir,'WAVEFORM_templates',filesep]; % output dir for waveform templates
+lsnconfig.wave_raw   =[lsnconfig.in_rootdir,'WAVEFORM_raw',filesep]; % output dir for raw waveforms
+lsnconfig.unitdir   = [lsnconfig.in_rootdir,'UnitFiles',filesep]; % output dir for spiketrains/trial files
+lsnconfig.rsvp500spks=[lsnconfig.in_rootdir,'rsvp500spks',filesep]; % output for spiketrains for dms400 neurons
+lsnconfig.rsvp500lfps=[lsnconfig.in_rootdir,'rsvp500lfps',filesep]; % output for lfps for rsvp500 files
+
 
 % ANALYSIS/OUTPUT DIRECTORIES
-lsnconfig.figurepath    = [out_rootdir,'figure_source_images',filesep]; % output dir for all data structures
-lsnconfig.datadir = [out_rootdir,'matlab_data',filesep]; % output dir for all figures
-
+lsnconfig.analysisName='TD500_TEMPDYN_Study'; % used for savenames, figures, etc. (pick whatever you want; will be used for filenames)
+lsnconfig.projectdir=lsnconfig.out_rootdir;
+lsnconfig.figuredir=[lsnconfig.projectdir,filesep,'figures_td500_tempDyn',filesep]; mkdir(lsnconfig.figuredir);
 
 
 % DEFAULT FILE LISTS
-lsnconfig.excelfile = [out_rootdir,'td500_Neurons.xlsx']; % excel spreadsheet
+lsnconfig.excelfile = [lsnconfig.out_rootdir,'td500_Neurons.xlsx']; % excel spreadsheet
 
 % ANALYSIS DEFAULTS
 lsnconfig.gausskernel = 10; % gaussian spike density function kernel (10ms)
 lsnconfig.gausskernelsml = 5; % smaller gaussian spike density function kernel (10ms)
 lsnconfig.printer     = 0;
-lsnconfig.LFP_kernel  = [in_rootdir,'PRA2kernelEmpPRA2HST20Gelec_2kHz.mat'];
-lsnconfig.LFP_kernel_HST1X = [in_rootdir,'PRA2kernel_2kHz.mat'];
+lsnconfig.LFP_kernel  = [lsnconfig.in_rootdir,'PRA2kernelEmpPRA2HST20Gelec_2kHz.mat'];
+lsnconfig.LFP_kernel_HST1X = [lsnconfig.in_rootdir,'PRA2kernel_2kHz.mat'];
 lsnconfig.xscale      = -100:500; % default time window % this is for RASTER CREATION (Note: can't be any lower than 100 given short ITI)
 lsnconfig.xScaleRange = [-100 500]; % this is for figures
 lsnconfig.fontsize_sml=10; lsnconfig.fontsize_med=12; lsnconfig.fontsize_lrg=14;
@@ -119,5 +120,5 @@ lsnconfig.objct500  = 81:100;
 
 
 % SAVE CONFIG FILE
-configname = [out_rootdir,'td500_configplex.mat'];
+configname = [lsnconfig.out_rootdir,'td500_configplex.mat'];
 save(configname,'lsnconfig');

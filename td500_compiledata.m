@@ -1,25 +1,25 @@
 function [UnitData,monkeyname,grids]=td500_compiledata(monkeyname,sheetname)
 % by AHB, May, 2014
-global lsnconfig
+global exptdata
 %%%  LOAD FILE LIST
 tic;
 fprintf(['\nLoading file list from Excel: ',sheetname,'\n']);
-[~,UnitData.plxname]=xlsread(lsnconfig.excelfile,sheetname,'B5:B1000'); % Filename
-[~,UnitData.unitname]=xlsread(lsnconfig.excelfile,sheetname,'C5:C1000'); % Cell Number
-[~,UnitData.gridloc]=xlsread(lsnconfig.excelfile,sheetname,'E5:E1000'); % Grid Location
-UnitData.depth=xlsread(lsnconfig.excelfile,sheetname,'F5:F1000'); % Depth (um)
-[~,UnitData.apindex]=xlsread(lsnconfig.excelfile,sheetname,'G5:G1000'); % AP Index
-[~,UnitData.est_location]=xlsread(lsnconfig.excelfile,sheetname,'H5:H1000'); % Estimated Location
-[~,UnitData.autoSensory]=xlsread(lsnconfig.excelfile,sheetname,'I5:I1000'); % Automated Sensory Classification
-[~,UnitData.confSensory]=xlsread(lsnconfig.excelfile,sheetname,'J5:J1000'); % Confirmed Sensory Classification
-[~,UnitData.autoPrefCat]=xlsread(lsnconfig.excelfile,sheetname,'K5:K1000'); % Automated Category Preference
-[~,UnitData.confPrefCat]=xlsread(lsnconfig.excelfile,sheetname,'L5:L1000'); % Confirmed Category Preference
-[~,UnitData.autoCatSelect]=xlsread(lsnconfig.excelfile,sheetname,'M5:M1000'); % Automated Category Selectivity
-[~,UnitData.confCatSelect]=xlsread(lsnconfig.excelfile,sheetname,'N5:N1000'); % Confirmed Category Selectivity
-[~,UnitData.autoRespDir]=xlsread(lsnconfig.excelfile,sheetname,'O5:O1000'); % Automated Response Direction (Excite/Inhibit)
-[~,UnitData.confRespDir]=xlsread(lsnconfig.excelfile,sheetname,'P5:P1000'); % Confirmed Response Direction (Excite/Inhibit)
-UnitData.quality=xlsread(lsnconfig.excelfile,sheetname,'Q5:Q1000'); % Quality
-UnitData.inclWaveform=xlsread(lsnconfig.excelfile,sheetname,'AA1:AA1000'); % include in Waveform analysis?
+[~,UnitData.plxname]=xlsread(exptdata.excelfile,sheetname,'B5:B1000'); % Filename
+[~,UnitData.unitname]=xlsread(exptdata.excelfile,sheetname,'C5:C1000'); % Cell Number
+[~,UnitData.gridloc]=xlsread(exptdata.excelfile,sheetname,'E5:E1000'); % Grid Location
+UnitData.depth=xlsread(exptdata.excelfile,sheetname,'F5:F1000'); % Depth (um)
+[~,UnitData.apindex]=xlsread(exptdata.excelfile,sheetname,'G5:G1000'); % AP Index
+[~,UnitData.est_location]=xlsread(exptdata.excelfile,sheetname,'H5:H1000'); % Estimated Location
+[~,UnitData.autoSensory]=xlsread(exptdata.excelfile,sheetname,'I5:I1000'); % Automated Sensory Classification
+[~,UnitData.confSensory]=xlsread(exptdata.excelfile,sheetname,'J5:J1000'); % Confirmed Sensory Classification
+[~,UnitData.autoPrefCat]=xlsread(exptdata.excelfile,sheetname,'K5:K1000'); % Automated Category Preference
+[~,UnitData.confPrefCat]=xlsread(exptdata.excelfile,sheetname,'L5:L1000'); % Confirmed Category Preference
+[~,UnitData.autoCatSelect]=xlsread(exptdata.excelfile,sheetname,'M5:M1000'); % Automated Category Selectivity
+[~,UnitData.confCatSelect]=xlsread(exptdata.excelfile,sheetname,'N5:N1000'); % Confirmed Category Selectivity
+[~,UnitData.autoRespDir]=xlsread(exptdata.excelfile,sheetname,'O5:O1000'); % Automated Response Direction (Excite/Inhibit)
+[~,UnitData.confRespDir]=xlsread(exptdata.excelfile,sheetname,'P5:P1000'); % Confirmed Response Direction (Excite/Inhibit)
+UnitData.quality=xlsread(exptdata.excelfile,sheetname,'Q5:Q1000'); % Quality
+UnitData.inclWaveform=xlsread(exptdata.excelfile,sheetname,'AA1:AA1000'); % include in Waveform analysis?
 toc
 
 % Convert Grid Location to AP coordinates
@@ -34,7 +34,7 @@ for un=1:size(UnitData.plxname,1),
     % Load individual file
     NewUnitName=char(UnitData.plxname(un)); newunit=char(UnitData.unitname(un));
     % disp(['...',NewUnitName(1:12),'-',newunit,'...'])
-    load([lsnconfig.rsvp500spks,NewUnitName(1:12),'-',newunit,'-500_NeuronData.mat']); % load unit data
+    load([exptdata.rsvp500spks,NewUnitName(1:12),'-',newunit,'-500_NeuronData.mat']); % load unit data
     waitbar(un/size(UnitData.plxname,1),h,['Loading data from ',NewUnitName(1:12),'-',newunit])
     
     % Labels and General Descriptives
@@ -306,5 +306,5 @@ fprintf(['\n  (Loaded data from ',num2str(size(UnitData.plxname,1)),' neurons)\n
 
 UnitData=orderfields(UnitData); grids=orderfields(grids);
 
-save([lsnconfig.datadir,'td500data_',monkeyname,'.mat'],'UnitData','grids','monkeyname');
+save([exptdata.datadir,'td500data_',monkeyname,'.mat'],'UnitData','grids','monkeyname');
 return
